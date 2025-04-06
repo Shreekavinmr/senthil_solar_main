@@ -137,12 +137,11 @@ function Information() {
           </MKTypography>
         </Grid>
         
-        <MKBox mt={8} position="relative" ref={containerRef}>
+        <MKBox mt={8} position="relative" ref={containerRef} sx={{ overflow: "hidden" }}>
           {/* Carousel Navigation */}
           <MKBox 
             position="absolute" 
             top="50%" 
-            left="-20px"
             zIndex={2}
             sx={{ transform: "translateY(-50%)" }}
           >
@@ -161,7 +160,7 @@ function Information() {
           <MKBox 
             position="absolute" 
             top="50%" 
-            right="-20px"
+            right="0px"
             zIndex={2}
             sx={{ transform: "translateY(-50%)" }}
           >
