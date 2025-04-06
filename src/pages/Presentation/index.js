@@ -45,6 +45,7 @@ import bgImage from "assets/images/senthil_solar_bg3.png";
 function Presentation() {
   return (
     <>
+    
       <DefaultNavbar routes={routes} sticky />
       <MKBox
         minHeight="75vh"

@@ -87,11 +87,9 @@ function Presentation() {
 
   return (
     <>
-      <DefaultNavbar
-              routes={routes}
-              transparent
-              light
-            />
+      <MKBox position="fixed" width="100%" zIndex={3}>
+              <DefaultNavbar routes={routes} />
+            </MKBox>
       <MKBox
         minHeight="75vh"
         width="100%"
