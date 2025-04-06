@@ -87,7 +87,11 @@ function Presentation() {
 
   return (
     <>
-      <DefaultNavbar routes={routes} sticky />
+      <DefaultNavbar
+              routes={routes}
+              transparent
+              light
+            />
       <MKBox
         minHeight="75vh"
         width="100%"
