@@ -34,7 +34,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/senthil_solar_bg3.png";
+import bgImage from "assets/images/canva_banner.png";
 
 // Using only Star icon to avoid import errors
 import StarIcon from '@mui/icons-material/Star';
@@ -55,9 +55,9 @@ function OffGrid() {
     },
     {
       icon: <StarIcon />,
-      title: "Battery Storage Systems",
+      title: "On-Grid Inverter Systems",
       description:
-        "Advanced battery technology ensures continuous power supply even during cloudy days and nighttime, delivering around-the-clock reliability.",
+        "Advanced inverter technology efficiently converts solar energy to usable electricity while maintaining connection to the utility grid, ensuring reliable power and allowing excess energy to be fed back into the grid for credits.",
     },
     {
       icon: <StarIcon />,
@@ -81,7 +81,11 @@ function OffGrid() {
 
   return (
     <>
-      <DefaultNavbar routes={routes} sticky />
+      <DefaultNavbar
+                    routes={routes}
+                    transparent
+                    light
+                  />
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -128,7 +132,7 @@ function OffGrid() {
          <DesignBlocks 
                   title="Off-Grid Solar System Solutions"
                   installationsCount="20+ INSTALLATIONS"
-                  description="Experience the freedom and independence of off-grid solar systems. Our off-grid solutions provide reliable, sustainable power, even in remote locations. Designed for homes, cabins, farms, and more, our systems offer a clean energy alternative that doesn't rely on the grid, ensuring you have power anywhere, anytime. Explore our gallery to see how an off-grid solar system can meet your energy needs."
+                  description="Experience the freedom and independence of off-grid solar system solutions, providing reliable, sustainable power in remote locations where traditional grid access is unavailable. Perfect for homes, cabins, farms, and more, our off-grid systems offer a clean energy alternative that ensures you have power anytime, anywhere. These systems are designed to function without relying on the grid, giving you full control over your energy needs while reducing your environmental impact. With minimal maintenance and long-lasting performance, our off-grid solar solutions are an ideal choice for those seeking energy autonomy and a sustainable way to power their property. Explore our gallery to see how our off-grid solar systems can transform your energy landscape."
                   features={offGridFeatures}
                   category="Off-Grid"
                 />

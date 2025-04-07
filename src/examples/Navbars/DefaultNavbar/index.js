@@ -43,7 +43,9 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 // Senthil Solar React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
-function DefaultNavbar({ brand, routes, transparent, light, action, sticky, relative, center }) {
+import brand1 from "assets/images/senthil_solar_logo_3.png";
+
+function DefaultNavbar({routes, transparent, light, action, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
   const [dropdownEl, setDropdownEl] = useState("");
   const [dropdownName, setDropdownName] = useState("");
@@ -98,6 +100,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
       }}
       onMouseLeave={() => collapse && setDropdown(null)}
       light={light}
+      sx={{ fontSize: "4rem" }}
     />
   ));
 
@@ -384,7 +387,7 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
                         {item.name}
                         <MKTypography
                           display="block"
-                          variant="button"
+                          variant="h6"
                           color="text"
                           fontWeight="regular"
                           sx={{ transition: "all 300ms linear" }}
@@ -450,11 +453,32 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
   );
 
   return (
-    <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
+      <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
+      {/* Logo Container (Outside the header box) */}
+      <MKBox
+        position="absolute"
+        top={0}
+        left={0}
+        zIndex={5}
+        sx={{ px: 7,py: 2 }}
+      >
+        <MKBox
+          component={Link}
+          to="/"
+          lineHeight={1}
+          py={1.5}
+        >
+          <img
+            src={brand1}
+            alt="Senthil Solar Logo"
+            style={{ height: "150px", width: "auto" }} // Adjust size as needed
+          />
+        </MKBox>
+      </MKBox>
       <MKBox
         py={1}
         px={{ xs: 4, sm: transparent ? 2 : 3, lg: transparent ? 0 : 2 }}
-        my={relative ? 0 : 2}
+        my={relative ? 0 : 7}
         mx={relative ? 0 : 3}
         width={relative ? "100%" : "calc(100% - 48px)"}
         borderRadius="xl"
@@ -469,17 +493,6 @@ function DefaultNavbar({ brand, routes, transparent, light, action, sticky, rela
         })}
       >
         <MKBox display="flex" justifyContent="space-between" alignItems="center">
-          <MKBox
-            component={Link}
-            to="/"
-            lineHeight={1}
-            py={transparent ? 1.5 : 0.75}
-            pl={relative || transparent ? 0 : { xs: 0, lg: 1 }}
-          >
-            <MKTypography variant="button" fontWeight="bold" color={light ? "white" : "dark"}>
-              {brand}
-            </MKTypography>
-          </MKBox>
           <MKBox
             color="inherit"
             display={{ xs: "none", lg: "flex" }}

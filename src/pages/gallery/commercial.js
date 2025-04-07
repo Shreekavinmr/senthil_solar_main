@@ -36,7 +36,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/senthil_solar_bg3.png";
+import bgImage from "assets/images/canva_banner.png";
 
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'; // You might need a different icon for businesses
 import SolarPowerIcon from '@mui/icons-material/SolarPower';
@@ -87,9 +87,11 @@ function Presentation() {
 
   return (
     <>
-      <MKBox position="fixed" width="100%" zIndex={3}>
-              <DefaultNavbar routes={routes} />
-            </MKBox>
+      <DefaultNavbar
+                    routes={routes}
+                    transparent
+                    light
+                  />
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -136,7 +138,7 @@ function Presentation() {
          <DesignBlocks 
                   title="Commercial Solar Solutions"
                   installationsCount="40+ INSTALLATIONS"
-                  description="Our commercial solar solutions are designed to meet the energy demands of businesses. By integrating custom solar systems, we help reduce operational costs, increase energy efficiency, and provide a sustainable energy source that enhances your company's green footprint. Discover how our solar solutions can elevate your business with clean, renewable energy."
+                  description="Our commercial solar solutions are designed to meet the unique energy demands of businesses, offering a sustainable, cost-effective way to reduce operational costs and increase energy efficiency. By integrating custom solar systems, we help businesses lower electricity bills, gain energy independence, and reduce their carbon footprint, all while benefiting from available government incentives and tax benefits. Solar power not only enhances your company's green footprint but also improves resilience against rising energy prices and power outages. With long-term savings, minimal maintenance, and the ability to scale as your business grows, our solutions provide an excellent return on investment. Discover how our tailored solar systems can help your business thrive with clean, renewable energy."
                   features={commercialFeatures}
                   category="Commercial"
                 />

@@ -58,7 +58,7 @@ function AboutUsPeople() {
             sx={{ mx: "auto", textAlign: "center" }}
           >
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
-  Meet the dedicated professionals behind Senthil Solar. Our team is composed of skilled and passionate individuals who are committed to driving the solar revolution. With years of expertise in renewable energy, engineering, and installation, each team member plays a crucial role in delivering high-quality solar solutions. Our professionals work tirelessly to ensure that every project is executed to perfection, contributing to a sustainable future for all. At Senthil Solar, we are proud of our teams dedication to excellence, innovation, and customer satisfaction.
+            Driving the solar revolution with a skilled, passionate team. Experts in renewable energy, engineering, and installation, we deliver high-quality solar solutions, executing every project perfectly for a sustainable future. Committed to excellence, innovation, and customer satisfaction.
 </MKTypography>
 
           </Grid>

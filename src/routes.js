@@ -22,6 +22,7 @@ import AboutUsPeople from "layouts/pages/landing-pages/about-us/people";
 
 // Sections
 import Presentation from "pages/gallery/residential";
+import Awards from "pages/gallery/awards";
 import Presentation1 from "pages/gallery/commercial";
 import SolarPump from "pages/gallery/solarpump";
 import StreetLight from "pages/gallery/streetlight";
@@ -60,6 +61,11 @@ const routes = [
     name: "Gallery",
     icon: <PhotoLibraryIcon />, // Represents a collection of images
     collapse: [
+      {
+        name: "Awards",
+        route: "/gallery/awards",
+        component: <Awards />,
+      },
       {
         name: "Residential",
         route: "/gallery/residential",

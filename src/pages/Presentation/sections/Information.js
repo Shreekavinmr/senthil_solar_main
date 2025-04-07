@@ -40,13 +40,13 @@ function Information() {
             <RotatingCard>
               <RotatingCardFront
                 image={bgFront}
-                icon="energy_savings_leaf"
+                icon="shield"
                 title={
                   <>
-                    Senthil Solar
+                    Reliable Durability
                   </>
                 }
-                description="5/244 MILK DIARY STREET Villarasampatti 4 Road Nasiyanoor Main Road, Post, Thindal, Tamil Nadu 638012."
+                description="ur solar systems are built to last, with high-quality components designed to endure extreme weather conditions and provide consistent performance."
               />
               <RotatingCardBack
                 image={bgBack}
@@ -74,7 +74,7 @@ function Information() {
                 <DefaultInfoCard
                   icon="eco"
                   title="Advanced Technology"
-                  description="We use the industry's most efficient solar panels and battery systems for maximum energy production and savings."
+                  description="We use the industry's most efficient solar panels and ongrid inverters systems for maximum energy production and savings."
                 />
               </Grid>
             </Grid>

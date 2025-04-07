@@ -31,8 +31,8 @@ import footerRoutes from "footer.routes";
 import emailjs from "emailjs-com";
 
 // Images
-import bgImage from "assets/images/senthilsolar_logo.jpeg";
-import contactBanner from "assets/images/senthil_solar_bg2.png";
+import bgImage from "assets/images/senthilsolar_logo.png";
+import contactBanner from "assets/images/canva_banner.png";
 
 function ContactUs() {
   const [formData, setFormData] = useState({
@@ -109,9 +109,11 @@ function ContactUs() {
 
   return (
     <>
-      <MKBox position="fixed" top="0.5rem" width="100%" zIndex={3}>
-        <DefaultNavbar routes={routes} />
-      </MKBox>
+       <DefaultNavbar
+                          routes={routes}
+                          transparent
+                          light
+                        />
       
       {/* Hero Section with Banner */}
       <MKBox
@@ -205,7 +207,7 @@ function ContactUs() {
                     <MKBox>
                       <MKTypography variant="h6">Email</MKTypography>
                       <MKTypography variant="button" color="text">
-                        senthilsolar@gmail.com
+                        km.senthilsolar@gmail.com
                       </MKTypography>
                     </MKBox>
                   </MKBox>

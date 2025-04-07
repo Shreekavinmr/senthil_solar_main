@@ -84,20 +84,6 @@ function SolutionCard({ image, name, pro }) {
       </Box>
       
       {/* Content part */}
-      <Box sx={{ p: 3 }}>
-        <Typography
-          variant="h6"
-          component="h3"
-          sx={{
-            fontWeight: "600",
-            mb: 1,
-            color: "#1e293b",
-          }}
-        >
-          {name}
-        </Typography>
-
-      </Box>
     </Box>
   );
 }

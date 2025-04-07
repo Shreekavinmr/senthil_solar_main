@@ -27,7 +27,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import contactBanner from "assets/images/senthil_solar_bg2.png";
+import contactBanner from "assets/images/canva_banner.png";
 
 function SolarCalculator() {
   // State variables
@@ -138,9 +138,11 @@ function SolarCalculator() {
 
   return (
     <>
-      <MKBox position="fixed" top="0.5rem" width="100%" zIndex={3}>
-        <DefaultNavbar routes={routes} />
-      </MKBox>
+       <DefaultNavbar
+              routes={routes}
+              transparent
+              light
+            />
       
       {/* Hero Section */}
       <MKBox

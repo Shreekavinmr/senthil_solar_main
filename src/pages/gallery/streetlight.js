@@ -34,7 +34,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/senthil_solar_bg3.png";
+import bgImage from "assets/images/canva_banner.png";
 
 // Using only Star icon to avoid import errors
 import StarIcon from '@mui/icons-material/Star';
@@ -69,7 +69,7 @@ function StreetLight() {
       icon: <StarIcon />,
       title: "Intelligent Lighting Controls",
       description:
-        "Our smart solar street lights feature motion sensors and programmable dimming to maximize efficiency and battery life.",
+        "Our smart solar street lights feature motion sensors and programmable dimming to maximize efficiency.",
     },
     {
       icon: <StarIcon />,
@@ -81,7 +81,11 @@ function StreetLight() {
 
   return (
     <>
-      <DefaultNavbar routes={routes} sticky />
+      <DefaultNavbar
+                    routes={routes}
+                    transparent
+                    light
+                  />
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -128,7 +132,7 @@ function StreetLight() {
          <DesignBlocks 
                   title="Solar Lighting Solutions"
                   installationsCount="60+ INSTALLATIONS"
-                  description="Illuminate your property with our high-quality solar lighting solutions. Whether it's for your home, garden, or business, our solar lights provide reliable, energy-efficient, and eco-friendly illumination. Designed to save energy and reduce costs, our solar lights are the perfect sustainable lighting choice for any outdoor space."
+                  description="Illuminate your property with our high-quality solar lighting solutions, designed to provide reliable, energy-efficient, and eco-friendly illumination for homes, gardens, and businesses. Our solar lights harness the power of the sun to deliver sustainable lighting that reduces energy consumption and lowers electricity costs. Easy to install and maintain, these lights are perfect for enhancing outdoor spaces with minimal environmental impact. Whether you’re looking to light up your garden, pathway, or commercial property, our solar lights offer a cost-effective, low-maintenance solution that adds both beauty and functionality to any outdoor area, all while reducing your carbon footprint."
                   features={streetLightFeatures}
                   category="Solar Lights"
                 />

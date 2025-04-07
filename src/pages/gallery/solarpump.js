@@ -34,7 +34,7 @@ import routes from "routes";
 import footerRoutes from "footer.routes";
 
 // Images
-import bgImage from "assets/images/senthil_solar_bg3.png";
+import bgImage from "assets/images/canva_banner.png";
 
 import OpacityIcon from '@mui/icons-material/Opacity';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
@@ -86,7 +86,11 @@ function SolarPump() {
 
   return (
     <>
-      <DefaultNavbar routes={routes} sticky />
+      <DefaultNavbar
+                    routes={routes}
+                    transparent
+                    light
+                  />
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -133,7 +137,7 @@ function SolarPump() {
          <DesignBlocks 
                   title="Solar Pump Solutions"
                   installationsCount="35+ INSTALLATIONS"
-                  description="Harness the power of the sun with our solar pump solutions. Whether it's for irrigation, water supply, or other applications, our solar pumps offer efficient, sustainable, and cost-effective solutions. With reliable performance and minimal maintenance, our solar pumps are designed to meet your specific water pumping needs while helping you save energy and reduce operational costs."
+                  description="Harness the power of the sun with our solar pump solutions, designed to provide efficient, sustainable, and cost-effective water pumping for a wide range of applications, including irrigation, water supply, and more. Our solar pumps deliver reliable performance with minimal maintenance, ensuring that your water pumping needs are met while reducing energy consumption and operational costs. Whether you're powering a small irrigation system or a large-scale water supply setup, our solar pumps offer a green alternative that saves money, reduces your carbon footprint, and ensures a continuous, eco-friendly water supply."
                   features={solarPumpFeatures}
                   category="Solar Pump"
                 />
