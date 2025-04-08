@@ -65,7 +65,7 @@ function DefaultNavbarDropdown({
         {...(href && linkComponent)}
       >
         <MKTypography
-          variant="h6"
+          variant="body2"
           lineHeight={1}
           color="inherit"
           sx={{ alignSelf: "center", "& *": { verticalAlign: "middle" } }}

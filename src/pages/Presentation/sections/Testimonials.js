@@ -43,7 +43,7 @@ function Information() {
     {
       name: "Muruganandhan Sengadon",
       date: "2 years ago",
-      review: "He is very experienced in installation of solar roof top. Discusses pros and cons openly and suggests different products and the good one. Not demanding any amount more than the Govt approved rate. Installation was quick.",
+      review: "He is very experienced in installation of solar roof top. Not demanding any amount more than the Govt approved rate. Installation was quick.",
       rating: 5,
       color: "info", // Changed to "info" for blue styling
     },
@@ -130,7 +130,7 @@ function Information() {
         >
           <MKTypography variant="h2">Trusted by over</MKTypography>
           <MKTypography variant="h2" color="info" textGradient mb={2}>
-            100+ customers from various cities
+            600+ customers from various cities
           </MKTypography>
           <MKTypography variant="body1" color="text" mb={2}>
             Many companies, houses, and government institutions love Senthil Solar&apos;s products.

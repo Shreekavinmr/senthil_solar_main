@@ -58,7 +58,7 @@ function AboutUsPeople() {
             sx={{ mx: "auto", textAlign: "center" }}
           >
             <MKTypography variant="body1" color="white" opacity={0.8} mt={1} mb={3}>
-            Driving the solar revolution with a skilled, passionate team. Experts in renewable energy, engineering, and installation, we deliver high-quality solar solutions, executing every project perfectly for a sustainable future. Committed to excellence, innovation, and customer satisfaction.
+            Powering the solar revolution with expert installation and engineering. We deliver reliable, high-quality solutions focused on sustainability and customer satisfaction.
 </MKTypography>
 
           </Grid>

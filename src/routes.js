@@ -52,10 +52,19 @@ const routes = [
     ],
   },
   {
-    name: "Solar Calculator",
-    icon: <CalculateIcon />, // Represents a tool or calculator
-    route: "/solarcalculator",
-    component: <Presentation2 />,
+    name: "Calculator",
+    icon: <CalculateIcon />, // Represents information about the company
+    collapse: [
+      {
+        name: "Solar Calculator",
+        route: "/solarcalculator",
+        component: <Presentation2 />,
+      },
+      {
+        name: "EB Bill Calculator",
+        route: "https://www.tnebnet.org/awp/tariffMaster?execution=e2s1",
+      },
+    ],
   },
   {
     name: "Gallery",

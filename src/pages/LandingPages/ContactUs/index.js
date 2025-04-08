@@ -31,7 +31,7 @@ import footerRoutes from "footer.routes";
 import emailjs from "emailjs-com";
 
 // Images
-import bgImage from "assets/images/senthilsolar_logo.png";
+import bgImage from "assets/images/Senthil_Solar_Logo.png";
 import contactBanner from "assets/images/canva_banner.png";
 
 function ContactUs() {

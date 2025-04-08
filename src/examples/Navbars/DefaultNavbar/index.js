@@ -43,7 +43,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 // Senthil Solar React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
-import brand1 from "assets/images/senthil_solar_logo_3.png";
+import brand1 from "assets/images/Senthil_Solar_Logo.png";
 
 function DefaultNavbar({routes, transparent, light, action, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
@@ -465,12 +465,12 @@ function DefaultNavbar({routes, transparent, light, action, sticky, relative, ce
           component={Link}
           to="/"
           lineHeight={1}
-          py={1.5}
+          py={2}
         >
           <img
             src={brand1}
             alt="Senthil Solar Logo"
-            style={{ height: "150px", width: "auto" }} // Adjust size as needed
+            style={{ height: "100px", width: "auto" }} // Adjust size as needed
           />
         </MKBox>
       </MKBox>

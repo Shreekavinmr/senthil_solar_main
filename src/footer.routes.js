@@ -46,6 +46,7 @@ export default {
       name: "Calculator",
       items: [
         { name: "Solar Calculator", href: "/solarcalculator" },
+        { name: "EB Calculator", href: "https://www.tnebnet.org/awp/tariffMaster?execution=e1s1" },
       ],
     },
   ],
