@@ -100,7 +100,6 @@ function DefaultNavbar({routes, transparent, light, action, sticky, relative, ce
       }}
       onMouseLeave={() => collapse && setDropdown(null)}
       light={light}
-      sx={{ fontSize: "4rem" }}
     />
   ));
 
