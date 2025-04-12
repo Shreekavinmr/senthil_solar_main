@@ -55,7 +55,8 @@ export default {
       5/244 MILK DIARY STREET Villarasampatti 4 Road Nasiyanoor Main Road, Post, Thindal, Tamil Nadu 638012
       <br/>Phone: 096550 79555<br/>
       Email: km.senthilsolar@gmail.com<br/>
-      All rights reserved. Copyright &copy; {date} Senthi Solar
+      All rights reserved. Copyright &copy; {date} Senthi Solar.<br/> 
+      Developed by DigiNest Webworks
     </MKTypography>
   ),
 };

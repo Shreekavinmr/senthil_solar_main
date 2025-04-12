@@ -139,6 +139,7 @@ function Pages() {
                     description="Eligible households receive rooftop solar systems and 300 free units of electricity monthly, reducing energy costs. The scheme prioritizes economically weaker sections and rural households, ensuring equitable energy access."
                     action={{
                       type: "internal",
+                      route: "https://pmsuryaghar.gov.in/#/",  
                       label: "Apply Now",
                       color: "info"
                     }}
@@ -154,8 +155,8 @@ function Pages() {
                   <RotatingCardFront
                     image={bgFront}
                     icon="agriculture"
-                    title="Chief Minister's Solar Powered Pumpset Scheme"
-                    description="To empower farmers with off-grid standalone solar-powered pumping systems for irrigation, ensuring sustainable and cost-effective water management for agriculture."
+                    title="CM's Solar Powered Pumpset Scheme"
+                    description="To empower farmers with off-grid standalone solar-powered pumping systems for irrigation for sustainable and cost-effective water management for agriculture."
                     color="success"
                   />
                   <RotatingCardBack
@@ -163,6 +164,7 @@ function Pages() {
                     title="Key Features"
                     description="Farmers receive a 70% subsidy for the solar-powered pumping systems, making it affordable to implement. The scheme promotes eco-friendly, off-grid solar solutions, reducing dependency on conventional electricity for irrigation."
                     action={{
+                      route:"https://aed.tn.gov.in/en/schemes/renewal-energy-in-agriculture/chief-ministers-scheme-of-solar-powered-pumpsets/",
                       type: "internal",
                       label: "Apply Now",
                       color: "success"
@@ -188,6 +190,7 @@ function Pages() {
                     title="Key Features"
                     description="Tamil Nadu offers subsidies for the installation of grid-connected rooftop solar systems, reducing the financial burden on individuals and organizations. The portal allows users to easily apply for both subsidized and non-subsidized solar installations, streamlining the process for applicants."
                     action={{
+                      route:'https://pmsuryaghar.gov.in/#/',
                       type: "internal",
                       label: "Apply Now",
                       color: "warning"

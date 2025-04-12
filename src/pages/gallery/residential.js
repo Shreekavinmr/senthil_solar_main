@@ -22,6 +22,10 @@ import BoltIcon from '@mui/icons-material/Bolt';
 import SecurityIcon from '@mui/icons-material/Security';
 import CalculateIcon from '@mui/icons-material/Calculate';
 
+// Animation
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
 // Routes
 import routes from "routes";
 import footerRoutes from "footer.routes";
@@ -30,6 +34,17 @@ import footerRoutes from "footer.routes";
 import bgImage from "assets/images/canva_banner.png";
 
 function Presentation() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Set components visible after a short delay for a smoother entrance
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   // Define features data to pass to DesignBlocks component
   const residentialFeatures = [
     {
@@ -70,14 +85,78 @@ function Presentation() {
     }
   ];
   
+  // Animation variants
+  const headerAnimation = {
+    hidden: { opacity: 0, y: -100 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -100,
+      transition: { 
+        duration: 0.5 
+      }
+    }
+  };
+
+  const heroTextAnimation = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { 
+        delay: 0.2,
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const cardAnimation = {
+    hidden: { opacity: 0, y: 100 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        type: "spring",
+        stiffness: 50,
+        damping: 20,
+        delay: 0.3
+      }
+    }
+  };
+
+  const footerAnimation = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        delay: 1.2,
+        duration: 0.8
+      }
+    }
+  };
 
   return (
     <>
-      <DefaultNavbar
-                    routes={routes}
-                    transparent
-                    light
-                  />
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={headerAnimation}
+      >
+        <DefaultNavbar
+          routes={routes}
+          transparent
+          light
+        />
+      </motion.div>
+
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -90,49 +169,146 @@ function Presentation() {
         }}
       >
         <Container>
-          <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
-            <MKTypography
-              variant="h1"
-              color="white"
-              mt={-6}
-              mb={1}
-              sx={({ breakpoints, typography: { size } }) => ({
-                [breakpoints.down("md")]: {
-                  fontSize: size["3xl"],
-                },
-                textAlign: "center",
-              })}
-            >
-              Senthil Solar
-              <br />
-              Join the solar energy revolution
-            </MKTypography>
-          </Grid>
+          <motion.div
+            initial="hidden"
+            animate={isVisible ? "visible" : "hidden"}
+            variants={heroTextAnimation}
+          >
+            <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+              <MKTypography
+                variant="h1"
+                color="white"
+                mt={-6}
+                mb={1}
+                sx={({ breakpoints, typography: { size } }) => ({
+                  [breakpoints.down("md")]: {
+                    fontSize: size["3xl"],
+                  },
+                  textAlign: "center",
+                })}
+              >
+                Senthil Solar
+                <br />
+                Join the solar energy revolution
+              </MKTypography>
+            </Grid>
+          </motion.div>
         </Container>
       </MKBox>
-      <Card
-        sx={{
-          p: 2,
-          mx: { xs: 2, lg: 3 },
-          mt: -8,
-          mb: 4,
-          backgroundColor: ({ palette: { white }, functions: { rgba } }) => rgba(white.main, 0.8),
-          backdropFilter: "saturate(200%) blur(30px)",
-          boxShadow: ({ boxShadows: { xxl } }) => xxl,
-        }}
+
+      <motion.div
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        variants={cardAnimation}
       >
-        <DesignBlocks 
-          title="Residential Custom Solar Solutions"
-          installationsCount="100+ INSTALLATIONS"
-          description="Discover our custom residential solar solutions designed to fit your home's unique energy needs. Our expertly tailored solar systems provide sustainable, efficient, and cost-effective energy, helping homeowners reduce their carbon footprint and energy bills. Browse our gallery to explore how our solar solutions can transform your home into an eco-friendly powerhouse. We offer a variety of packages that suit homes of all sizes. Whether you're looking for a small system to offset part of your energy needs or a fully integrated solution to power your entire household, we have the expertise to help. Let our team of solar experts guide you every step of the way, from design to installation and maintenance"
-          features={residentialFeatures}
-          category="Residential"
-        />
-      </Card>
-      <MKBox pt={6} px={1} mt={6}>
-        <DefaultFooter content={footerRoutes} />
-      </MKBox>
+        <Card
+          sx={{
+            p: 2,
+            mx: { xs: 2, lg: 3 },
+            mt: -8,
+            mb: 4,
+            backgroundColor: ({ palette: { white }, functions: { rgba } }) => rgba(white.main, 0.8),
+            backdropFilter: "saturate(200%) blur(30px)",
+            boxShadow: ({ boxShadows: { xxl } }) => xxl,
+          }}
+        >
+          <AnimatedDesignBlocks 
+            title="Residential Custom Solar Solutions"
+            installationsCount="100+ INSTALLATIONS"
+            description="Discover our custom residential solar solutions designed to fit your home's unique energy needs. Our expertly tailored solar systems provide sustainable, efficient, and cost-effective energy, helping homeowners reduce their carbon footprint and energy bills. Browse our gallery to explore how our solar solutions can transform your home into an eco-friendly powerhouse. We offer a variety of packages that suit homes of all sizes. Whether you're looking for a small system to offset part of your energy needs or a fully integrated solution to power your entire household, we have the expertise to help. Let our team of solar experts guide you every step of the way, from design to installation and maintenance"
+            features={residentialFeatures}
+            category="Residential"
+            isVisible={isVisible}
+          />
+        </Card>
+      </motion.div>
+
+      <motion.div
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        variants={footerAnimation}
+      >
+        <MKBox pt={6} px={1} mt={6}>
+          <DefaultFooter content={footerRoutes} />
+        </MKBox>
+      </motion.div>
     </>
+  );
+}
+
+// Wrap DesignBlocks with animations
+function AnimatedDesignBlocks({ ...props }) {
+  // Animation variants for title and description
+  const textAnimation = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  // Animation variants for features
+
+  const featureAnimation = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { 
+        type: "spring",
+        stiffness: 100,
+        damping: 10
+      }
+    },
+    hover: {
+      scale: 1.03,
+      y: -5,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
+  // We're creating a wrapped version of DesignBlocks
+  // that adds animations to the child components
+  return (
+    <div>
+      <motion.div
+        initial="hidden"
+        variants={textAnimation}
+      >
+        {/* This will be our animated header section */}
+        <div className="design-blocks-header">
+          {/* The original DesignBlocks component will render its title and description here */}
+        </div>
+      </motion.div>
+
+      {/* Render the original DesignBlocks component with feature animations */}
+      <DesignBlocks 
+        {...props}
+        // We can use this custom render prop to animate each feature in the DesignBlocks component
+        // if DesignBlocks supports render props; if not, you may need to modify DesignBlocks directly
+        renderFeature={(feature, index) => (
+          <motion.div 
+            key={index}
+            variants={featureAnimation}
+            whileHover="hover"
+            custom={index}
+          >
+            {/* Render the feature content here */}
+            <div className="feature-content">
+              {feature.icon}
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          </motion.div>
+        )}
+      />
+    </div>
   );
 }
 

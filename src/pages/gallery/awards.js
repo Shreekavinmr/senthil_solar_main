@@ -20,16 +20,106 @@ import footerRoutes from "footer.routes";
 
 // Images
 import bgImage from "assets/images/canva_banner.png";
-import awardImage from "assets/images/awards_2025_1.jpg"; // Add your award image
+import awardImage from "assets/images/awards_2025_1.jpg";
+
+// Animation imports
+import { useSpring, animated } from 'react-spring';
+import { useInView } from 'react-intersection-observer';
+import { useEffect, useState } from 'react';
+
+// Create animated versions of MUI components
+const AnimatedCard = animated(Card);
+const AnimatedGrid = animated(Grid);
+const AnimatedMKBox = animated(MKBox);
 
 function AwardsRecognition() {
+  // For header animation
+  const [headerRef, headerInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+  
+  const headerAnimation = useSpring({
+    opacity: headerInView ? 1 : 0,
+    transform: headerInView ? 'translateY(0)' : 'translateY(-50px)',
+    config: { mass: 1, tension: 280, friction: 60 }
+  });
+
+  // For award card animation
+  const [awardRef, awardInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.2,
+  });
+  
+  const cardAnimation = useSpring({
+    opacity: awardInView ? 1 : 0,
+    transform: awardInView ? 'translateY(0)' : 'translateY(100px)',
+    config: { mass: 1, tension: 280, friction: 60 }
+  });
+
+  // For image animation
+  const [imageRef, imageInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.2,
+  });
+  
+  const imageAnimation = useSpring({
+    opacity: imageInView ? 1 : 0,
+    transform: imageInView ? 'scale(1) rotate(0deg)' : 'scale(0.8) rotate(-5deg)',
+    config: { mass: 1, tension: 280, friction: 60 }
+  });
+
+  // For award text animation
+  const [textRef, textInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.2,
+  });
+  
+  const textAnimation = useSpring({
+    opacity: textInView ? 1 : 0,
+    transform: textInView ? 'translateX(0)' : 'translateX(50px)',
+    config: { mass: 1, tension: 280, friction: 60 }
+  });
+
+  // For "Why This Recognition Matters" section
+  const [whyRef, whyInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.2,
+  });
+  
+  const whyAnimation = useSpring({
+    opacity: whyInView ? 1 : 0,
+    transform: whyInView ? 'translateY(0)' : 'translateY(50px)',
+    config: { mass: 1, tension: 280, friction: 60 }
+  });
+
+  // Floating animation for the award icon
+  const [iconFloating, setIconFloating] = useState(true);
+  
+  const floatingAnimation = useSpring({
+    to: async (next) => {
+      while (iconFloating) {
+        await next({ transform: 'translateY(-10px)' });
+        await next({ transform: 'translateY(0px)' });
+      }
+    },
+    from: { transform: 'translateY(0px)' },
+    config: { mass: 1, tension: 180, friction: 12 }
+  });
+
+  useEffect(() => {
+    return () => {
+      setIconFloating(false);
+    };
+  }, []);
+
   return (
     <>
       <DefaultNavbar
-                    routes={routes}
-                    transparent
-                    light
-                  />
+        routes={routes}
+        transparent
+        light
+      />
       <MKBox
         minHeight="75vh"
         width="100%"
@@ -42,7 +132,16 @@ function AwardsRecognition() {
         }}
       >
         <Container>
-          <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+          <AnimatedGrid 
+            ref={headerRef}
+            style={headerAnimation}
+            container 
+            item 
+            xs={12} 
+            lg={7} 
+            justifyContent="center" 
+            mx="auto"
+          >
             <MKTypography
               variant="h1"
               color="white"
@@ -59,7 +158,7 @@ function AwardsRecognition() {
               <br />
               Awards & Recognition
             </MKTypography>
-          </Grid>
+          </AnimatedGrid>
         </Container>
       </MKBox>
       <Card
@@ -82,8 +181,9 @@ function AwardsRecognition() {
             </Grid>
             
             <Grid container spacing={3} justifyContent="center">
-              <Grid item xs={12} md={10} lg={8}>
-                <Card
+              <Grid item xs={12} md={10} lg={8} ref={awardRef}>
+                <AnimatedCard
+                  style={cardAnimation}
                   sx={{
                     p: 3,
                     boxShadow: ({ boxShadows: { lg } }) => lg,
@@ -91,8 +191,9 @@ function AwardsRecognition() {
                   }}
                 >
                   <Grid container spacing={3} alignItems="center">
-                    <Grid item xs={12} md={6} lg={5}>
-                      <MKBox
+                    <Grid item xs={12} md={6} lg={5} ref={imageRef}>
+                      <AnimatedMKBox
+                        style={imageAnimation}
                         component="img"
                         src={awardImage}
                         alt="Tamil Nadu Annual Solar Awards 2025 - Gold Award"
@@ -101,10 +202,12 @@ function AwardsRecognition() {
                         shadow="md"
                       />
                     </Grid>
-                    <Grid item xs={12} md={6} lg={7}>
-                      <MKBox px={1}>
+                    <Grid item xs={12} md={6} lg={7} ref={textRef}>
+                      <AnimatedMKBox style={textAnimation} px={1}>
                         <MKTypography variant="h4" color="primary" mb={1} display="flex" alignItems="center">
-                          <EmojiEventsIcon fontSize="large" sx={{ mr: 1 }} />
+                          <animated.div style={floatingAnimation}>
+                            <EmojiEventsIcon fontSize="large" sx={{ mr: 1 }} />
+                          </animated.div>
                           Gold Award Winner
                         </MKTypography>
                         <MKTypography variant="h5" fontWeight="bold" mb={1}>
@@ -124,14 +227,25 @@ function AwardsRecognition() {
                           in the solar energy sector. We are honored to be acknowledged for our contributions 
                           to sustainable energy solutions in Tamil Nadu.
                         </MKTypography>
-                      </MKBox>
+                      </AnimatedMKBox>
                     </Grid>
                   </Grid>
-                </Card>
+                </AnimatedCard>
               </Grid>
             </Grid>
             
-            <Grid container item xs={12} md={10} lg={8} justifyContent="center" mx="auto" mt={6}>
+            <AnimatedGrid 
+              ref={whyRef}
+              style={whyAnimation}
+              container 
+              item 
+              xs={12} 
+              md={10} 
+              lg={8} 
+              justifyContent="center" 
+              mx="auto" 
+              mt={6}
+            >
               <MKTypography variant="h4" textAlign="center" mb={2}>
                 Why This Recognition Matters
               </MKTypography>
@@ -142,7 +256,7 @@ function AwardsRecognition() {
                 to advancing renewable energy adoption across Tamil Nadu and motivates us to 
                 continue delivering outstanding service to our valued customers.
               </MKTypography>
-            </Grid>
+            </AnimatedGrid>
           </Container>
         </MKBox>
       </Card>
