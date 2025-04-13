@@ -62,7 +62,7 @@ const routes = [
       },
       {
         name: "EB Bill Calculator",
-        route: "https://www.tnebnet.org/awp/tariffMaster?execution=e2s1",
+        route: "https://tnebcalculator-gowdham.netlify.app/",
       },
     ],
   },

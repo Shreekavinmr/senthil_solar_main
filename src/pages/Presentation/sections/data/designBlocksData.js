@@ -12,22 +12,27 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import residential_1 from "assets/images/res_1.jpg";
-import residential_2 from "assets/images/res_3.jpg";
-import residential_3 from "assets/images/res_4.jpeg";
-import residential_4 from "assets/images/res_5.jpeg";
-import residential_6 from "assets/images/res_7.jpeg";
-import residential_7 from "assets/images/res_8.jpg";
-import residential_8 from "assets/images/res_9.jpg";
-import residential_10 from "assets/images/res_11.jpg";
-import residential_11 from "assets/images/res_12.jpg";
+import residential_1 from "assets/images/res_1.jpeg";
+import residential_2 from "assets/images/res_2.jpeg";
+import residential_3 from "assets/images/res_3.jpeg";
+import residential_4 from "assets/images/res_4.jpeg";
+import residential_5 from "assets/images/res_5.jpeg";
+import residential_6 from "assets/images/res_6.jpeg";
+import residential_7 from "assets/images/res_7.jpeg";
+import residential_8 from "assets/images/res_8.jpeg";
 
-import commercial_1 from "assets/images/1_comm.jpg";
+import commercial_1 from "assets/images/1_comm.jpeg";
 import commercial_2 from "assets/images/2_comm.jpg";
-import commercial_3 from "assets/images/3_comm.jpg";
-import commercial_4 from "assets/images/4_comm.jpg";
-import commercial_5 from "assets/images/5_comm.jpg";
+import commercial_3 from "assets/images/3_comm.jpeg";
+import commercial_4 from "assets/images/4_comm.jpeg";
+import commercial_5 from "assets/images/5_comm.jpeg";
 import commercial_6 from "assets/images/6_comm.jpg";
+import commercial_7 from "assets/images/7_comm.jpeg";
+import commercial_8 from "assets/images/8_comm.jpeg";
+import commercial_9 from "assets/images/9_comm.jpeg";
+import commercial_10 from "assets/images/10_comm.jpeg";
+import commercial_11 from "assets/images/11_comm.jpeg";
+import commercial_12 from "assets/images/12_comm.jpeg";
 
 import off_grid_1 from "assets/images/off_grid.jpg";
 
@@ -51,8 +56,7 @@ export default [
       { image: residential_6 },
       { image: residential_7 },
       { image: residential_8 },
-      { image: residential_10 },
-      { image: residential_11},
+      { image: residential_5 },
     ],
   },
   {
@@ -64,6 +68,12 @@ export default [
       { image: commercial_4 },
       { image: commercial_5 },
       { image: commercial_6 },
+      { image: commercial_7 },
+      { image: commercial_8 },
+      { image: commercial_9 },
+      { image: commercial_10 },
+      { image: commercial_11 },
+      { image: commercial_12 },
     ],
   },
   {
