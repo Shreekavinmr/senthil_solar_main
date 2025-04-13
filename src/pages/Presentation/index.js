@@ -1,25 +1,8 @@
-/*
-=========================================================
-* Senthil Solar React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
 import Fade from "@mui/material/Fade";
-import Slide from "@mui/material/Slide";
 import Zoom from "@mui/material/Zoom";
 import { keyframes } from "@mui/system";
 
@@ -76,78 +59,114 @@ const floatAnimation = keyframes`
 `;
 
 function Presentation() {
-  // Animation state for the entire page
-  const [showPage, setShowPage] = useState(false);
+  // Animation states for individual elements
+  const [showElements, setShowElements] = useState({
+    hero: false,
+    logo: false,
+    heading: false,
+    description: false,
+    button: false,
+    benefits: false,
+    card: false
+  });
 
-  // Trigger the fly-in animation when the component mounts
+  // Staged animation sequence
   useEffect(() => {
-    const timer = setTimeout(() => setShowPage(true), 300); // Slight delay for effect
-    return () => clearTimeout(timer);
+    // Initial content
+    const heroTimer = setTimeout(() => setShowElements(prev => ({ ...prev, hero: true })), 100);
+    
+    // Logo appears next
+    const logoTimer = setTimeout(() => setShowElements(prev => ({ ...prev, logo: true })), 600);
+    
+    // Text elements appear
+    const headingTimer = setTimeout(() => setShowElements(prev => ({ ...prev, heading: true })), 900);
+    const descTimer = setTimeout(() => setShowElements(prev => ({ ...prev, description: true })), 1200);
+    
+    // Button and benefits
+    const buttonTimer = setTimeout(() => setShowElements(prev => ({ ...prev, button: true })), 1500);
+    const benefitsTimer = setTimeout(() => setShowElements(prev => ({ ...prev, benefits: true })), 1800);
+    
+    // Card content
+    const cardTimer = setTimeout(() => setShowElements(prev => ({ ...prev, card: true })), 2000);
+
+    // Cleanup
+    return () => {
+      clearTimeout(heroTimer);
+      clearTimeout(logoTimer);
+      clearTimeout(headingTimer);
+      clearTimeout(descTimer);
+      clearTimeout(buttonTimer);
+      clearTimeout(benefitsTimer);
+      clearTimeout(cardTimer);
+    };
   }, []);
 
   return (
-    <Slide direction="up" in={showPage} timeout={1000}>
-      <div>
-        <DefaultNavbar routes={routes} transparent light />
-        <MKBox
-          minHeight="120vh"
-          width="100%"
-          sx={{
-            backgroundImage: `url(${bgImage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top",
-            display: "grid",
-            placeItems: "center",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* Bottom Corner Elements - Benefits */}
-          <Fade in={showPage} timeout={1800}>
-            <MKBox
-              sx={{
-                position: "absolute",
-                bottom: "15%",
-                left: "0",
-                right: "0",
-                display: "flex",
-                justifyContent: "space-around",
-                px: { xs: 2, md: 10 },
-                zIndex: 2,
-              }}
-            >
-              {["Savings", "Clean Energy", "Reliability"].map((benefit, index) => (
-                <MKBox
-                  key={index}
-                  sx={{
-                    backgroundColor: "rgba(0,0,0,0.4)",
-                    backdropFilter: "blur(5px)",
-                    borderRadius: "50px",
-                    px: 2,
-                    py: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    animation: `${floatAnimation} ${4 + index * 0.5}s ease-in-out infinite`,
-                    animationDelay: `${index * 0.2}s`,
-                  }}
+    <>
+      <DefaultNavbar routes={routes} transparent light />
+      
+      {/* Hero section - always visible but content fades in */}
+      <MKBox
+        minHeight="120vh"
+        width="100%"
+        sx={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "top",
+          display: "grid",
+          placeItems: "center",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Benefits badges */}
+        <Fade in={showElements.benefits} timeout={1000}>
+          <MKBox
+            sx={{
+              position: "absolute",
+              bottom: "15%",
+              left: "0",
+              right: "0",
+              display: "flex",
+              justifyContent: "space-around",
+              px: { xs: 2, md: 10 },
+              zIndex: 2,
+            }}
+          >
+            {["Savings", "Clean Energy", "Reliability"].map((benefit, index) => (
+              <MKBox
+                key={index}
+                sx={{
+                  backgroundColor: "rgba(0,0,0,0.4)",
+                  backdropFilter: "blur(5px)",
+                  borderRadius: "50px",
+                  px: 2,
+                  py: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  animation: `${floatAnimation} ${4 + index * 0.5}s ease-in-out infinite`,
+                  animationDelay: `${index * 0.2}s`,
+                }}
+              >
+                <MKTypography
+                  variant="button"
+                  color="white"
+                  fontWeight="regular"
+                  fontSize="0.75rem"
                 >
-                  <MKTypography
-                    variant="button"
-                    color="white"
-                    fontWeight="regular"
-                    fontSize="0.75rem"
-                  >
-                    {benefit}
-                  </MKTypography>
-                </MKBox>
-              ))}
-            </MKBox>
-          </Fade>
+                  {benefit}
+                </MKTypography>
+              </MKBox>
+            ))}
+          </MKBox>
+        </Fade>
 
-          <Container>
-            <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
-              <Zoom in={showPage} timeout={1000}>
+        <Container>
+          <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+            {/* Logo */}
+            <Fade in={showElements.logo} timeout={800}>
+              <Zoom in={showElements.logo} timeout={1200}>
                 <MKBox
                   component="img"
                   src={senthilsolartext}
@@ -157,45 +176,52 @@ function Presentation() {
                     mx: "auto",
                     display: "block",
                     animation: `${pulseAnimation} 3s ease-in-out infinite`,
+                    animationDelay: "1s",
                   }}
                 />
               </Zoom>
+            </Fade>
 
-              <Fade in={showPage} timeout={1000}>
-                <MKTypography
-                  variant="h3"
-                  color="white"
-                  textAlign="center"
-                  mb={2}
-                  sx={{
-                    fontFamily: '"Poppins", sans-serif',
-                    fontWeight: 500,
-                    fontStyle: "italic",
-                  }}
-                >
-                  Join the solar energy revolution
-                </MKTypography>
-              </Fade>
+            {/* Heading */}
+            <Fade in={showElements.heading} timeout={800}>
+              <MKTypography
+                variant="h3"
+                color="white"
+                textAlign="center"
+                mb={2}
+                sx={{
+                  fontFamily: '"Poppins", sans-serif',
+                  fontWeight: 500,
+                  fontStyle: "italic",
+                }}
+              >
+                Join the solar energy revolution
+              </MKTypography>
+            </Fade>
 
-              <Fade in={showPage} timeout={1000}>
-                <MKTypography
-                  variant="body1"
-                  color="white"
-                  textAlign="center"
-                  px={{ xs: 6, lg: 12 }}
-                  mt={1}
-                  sx={{
-                    fontFamily: '"Open Sans", sans-serif',
-                    fontSize: "1.1rem",
-                    letterSpacing: "0.5px",
-                    animation: `${floatAnimation} 4s ease-in-out infinite`,
-                  }}
-                >
-                  Shaping a greener tomorrow with reliable solar energy solutions for every need
-                </MKTypography>
-              </Fade>
+            {/* Description */}
+            <Fade in={showElements.description} timeout={800}>
+              <MKTypography
+                variant="body1"
+                color="white"
+                textAlign="center"
+                px={{ xs: 6, lg: 12 }}
+                mt={1}
+                sx={{
+                  fontFamily: '"Open Sans", sans-serif',
+                  fontSize: "1.1rem",
+                  letterSpacing: "0.5px",
+                  animation: `${floatAnimation} 4s ease-in-out infinite`,
+                  animationDelay: "1.5s",
+                }}
+              >
+                Shaping a greener tomorrow with reliable solar energy solutions for every need
+              </MKTypography>
+            </Fade>
 
-              <Zoom in={showPage} timeout={1500}>
+            {/* CTA Button */}
+            <Fade in={showElements.button} timeout={800}>
+              <Zoom in={showElements.button} timeout={1200}>
                 <MKBox textAlign="center" mt={4} width="100%">
                   <MKButton
                     variant="contained"
@@ -219,40 +245,41 @@ function Presentation() {
                   </MKButton>
                 </MKBox>
               </Zoom>
-            </Grid>
-          </Container>
-        </MKBox>
+            </Fade>
+          </Grid>
+        </Container>
+      </MKBox>
 
-        <Fade in={showPage} timeout={1000}>
-          <Card
-            sx={{
-              p: 2,
-              mx: { xs: 2, lg: 3 },
-              mt: -8,
-              mb: 4,
-              backgroundColor: ({ palette: { white }, functions: { rgba } }) =>
-                rgba(white.main, 0.8),
-              backdropFilter: "saturate(200%) blur(30px)",
-              boxShadow: ({ boxShadows: { xxl } }) => xxl,
-              transition: "transform 0.3s ease-in-out",
-              "&:hover": {
-                transform: "translateY(-10px)",
-              },
-            }}
-          >
-            <Counters />
-            <Information />
-            <Pages />
-            <Testimonials />
-            <Download />
-          </Card>
-        </Fade>
+      {/* Content Card */}
+      <Fade in={showElements.card} timeout={1000}>
+        <Card
+          sx={{
+            p: 2,
+            mx: { xs: 2, lg: 3 },
+            mt: -8,
+            mb: 4,
+            backgroundColor: ({ palette: { white }, functions: { rgba } }) =>
+              rgba(white.main, 0.8),
+            backdropFilter: "saturate(200%) blur(30px)",
+            boxShadow: ({ boxShadows: { xxl } }) => xxl,
+            transition: "transform 0.3s ease-in-out, opacity 0.5s ease-in-out",
+            "&:hover": {
+              transform: "translateY(-10px)",
+            },
+          }}
+        >
+          <Counters />
+          <Information />
+          <Pages />
+          <Testimonials />
+          <Download />
+        </Card>
+      </Fade>
 
-        <MKBox pt={6} px={1} mt={6}>
-          <DefaultFooter content={footerRoutes} />
-        </MKBox>
-      </div>
-    </Slide>
+      <MKBox pt={6} px={1} mt={6}>
+        <DefaultFooter content={footerRoutes} />
+      </MKBox>
+    </>
   );
 }
 

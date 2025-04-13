@@ -21,9 +21,13 @@ import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/images/canva_banner.png";
 import awardImage from "assets/images/awards_2025_1.jpg";
+// Add additional image imports for gallery
+import galleryImage1 from "assets/images/recognition_1.jpeg";
+import galleryImage2 from "assets/images/recognition_2.jpeg";
+import galleryImage3 from "assets/images/recognition_3.jpeg";
 
 // Animation imports
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated, useTrail } from 'react-spring';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 
@@ -105,6 +109,36 @@ function AwardsRecognition() {
     },
     from: { transform: 'translateY(0px)' },
     config: { mass: 1, tension: 180, friction: 12 }
+  });
+
+  // For gallery section animations
+  const [galleryRef, galleryInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
+  const galleryHeaderAnimation = useSpring({
+    opacity: galleryInView ? 1 : 0,
+    transform: galleryInView ? 'translateY(0)' : 'translateY(30px)',
+    config: { mass: 1, tension: 280, friction: 60 }
+  });
+
+  // Gallery images animation with staggered effect
+  const galleryImages = [
+    { src: galleryImage1, alt: "Recognition" },
+    { src: galleryImage2, alt: "Recognition" },
+    { src: galleryImage3, alt: "Installation Recognition" },
+  ];
+
+  const [imagesRef, imagesInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
+  const trail = useTrail(galleryImages.length, {
+    opacity: imagesInView ? 1 : 0,
+    transform: imagesInView ? 'scale(1)' : 'scale(0.85)',
+    config: { mass: 1, tension: 280, friction: 50 },
   });
 
   useEffect(() => {
@@ -257,6 +291,52 @@ function AwardsRecognition() {
                 continue delivering outstanding service to our valued customers.
               </MKTypography>
             </AnimatedGrid>
+
+            {/* New Photo Gallery Section */}
+            <MKBox component="section" py={6} mt={4}>
+              <Container>
+                <AnimatedGrid 
+                  ref={galleryRef}
+                  style={galleryHeaderAnimation}
+                  container 
+                  item 
+                  xs={12} 
+                  justifyContent="center" 
+                  mx="auto" 
+                  mb={4}
+                >
+                  <MKTypography variant="body1" color="text" textAlign="center" mt={2} px={2}>
+                    Capturing the memorable moments of our recognition and achievements
+                  </MKTypography>
+                </AnimatedGrid>
+
+                <Grid container spacing={2} ref={imagesRef}>
+                  {trail.map((style, index) => (
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                      <animated.div style={style}>
+                        <MKBox
+                          component="img"
+                          src={galleryImages[index].src}
+                          alt={galleryImages[index].alt}
+                          borderRadius="lg"
+                          shadow="md"
+                          width="100%"
+                          height="250px"
+                          sx={{ 
+                            objectFit: "cover",
+                            transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                            "&:hover": {
+                              transform: "translateY(-10px)",
+                              boxShadow: ({ boxShadows: { xxl } }) => xxl,
+                            },
+                          }}
+                        />
+                      </animated.div>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Container>
+            </MKBox>
           </Container>
         </MKBox>
       </Card>

@@ -41,30 +41,22 @@ function CustomVideoPlayer({ isVisible }) {
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(true);
-  
-  // Hide controls after inactivity
+
   useEffect(() => {
     if (isPlaying) {
-      const timer = setTimeout(() => {
-        setShowControls(false);
-      }, 3000);
-      
+      const timer = setTimeout(() => setShowControls(false), 3000);
       return () => clearTimeout(timer);
     }
   }, [isPlaying, showControls]);
-  
+
   const togglePlay = () => {
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
+      isPlaying ? videoRef.current.pause() : videoRef.current.play();
       setIsPlaying(!isPlaying);
     }
     setShowControls(true);
   };
-  
+
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       const progress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
@@ -72,13 +64,13 @@ function CustomVideoPlayer({ isVisible }) {
       setCurrentTime(videoRef.current.currentTime);
     }
   };
-  
+
   const handleLoadedMetadata = () => {
     if (videoRef.current) {
       setDuration(videoRef.current.duration);
     }
   };
-  
+
   const handleProgressChange = (event, newValue) => {
     if (videoRef.current) {
       const newTime = (newValue / 100) * videoRef.current.duration;
@@ -87,19 +79,15 @@ function CustomVideoPlayer({ isVisible }) {
       setCurrentTime(newTime);
     }
   };
-  
+
   const handleVolumeChange = (event, newValue) => {
     if (videoRef.current) {
       videoRef.current.volume = newValue;
       setVolume(newValue);
-      if (newValue === 0) {
-        setIsMuted(true);
-      } else {
-        setIsMuted(false);
-      }
+      setIsMuted(newValue === 0);
     }
   };
-  
+
   const toggleMute = () => {
     if (videoRef.current) {
       if (isMuted) {
@@ -111,21 +99,17 @@ function CustomVideoPlayer({ isVisible }) {
       }
     }
   };
-  
+
   const skipForward = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime += 10; // Skip forward 10 seconds
-      setShowControls(true);
-    }
+    if (videoRef.current) videoRef.current.currentTime += 10;
+    setShowControls(true);
   };
-  
+
   const skipBackward = () => {
-    if (videoRef.current) {
-      videoRef.current.currentTime -= 10; // Skip backward 10 seconds
-      setShowControls(true);
-    }
+    if (videoRef.current) videoRef.current.currentTime -= 10;
+    setShowControls(true);
   };
-  
+
   const toggleFullScreen = () => {
     if (containerRef.current) {
       if (document.fullscreenElement) {
@@ -136,19 +120,19 @@ function CustomVideoPlayer({ isVisible }) {
       setShowControls(true);
     }
   };
-  
+
   const videoAnimation = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.7,
         ease: "easeOut"
       }
     }
   };
-  
+
   return (
     <Container sx={{ my: 6 }}>
       <motion.div
@@ -164,23 +148,30 @@ function CustomVideoPlayer({ isVisible }) {
             See how we are transforming businesses with clean energy
           </MKTypography>
         </MKBox>
-        
-        <Card 
+
+        <Card
           ref={containerRef}
-          sx={{ 
+          sx={{
             overflow: "hidden",
             boxShadow: 5,
             position: "relative",
+            mx: "auto",
+            maxWidth: "960px" // ⬅️ LIMIT SIZE
           }}
           onMouseMove={() => setShowControls(true)}
         >
-          <MKBox position="relative">
+          <MKBox
+            sx={{
+              position: "relative",
+              height: "800px", // ⬅️ MAINTAIN ASPECT RATIO
+              width: "100%",
+              backgroundColor: "black"
+            }}
+          >
             <video
               ref={videoRef}
-              width="100%"
-              height="auto"
-              poster="assets/images/video-poster.jpg" // Optional: Add a poster image
-              style={{ display: "block" }}
+              poster="assets/images/video-poster.jpg"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
               onClick={togglePlay}
@@ -189,8 +180,7 @@ function CustomVideoPlayer({ isVisible }) {
               <source src={solarVideo} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            
-            {/* Play button overlay (only when paused and controls are visible) */}
+
             {!isPlaying && showControls && (
               <MKBox
                 position="absolute"
@@ -211,9 +201,9 @@ function CustomVideoPlayer({ isVisible }) {
                   variant="contained"
                   color="primary"
                   size="large"
-                  sx={{ 
-                    borderRadius: "50%", 
-                    width: "80px", 
+                  sx={{
+                    borderRadius: "50%",
+                    width: "80px",
                     height: "80px",
                     minWidth: "auto",
                   }}
@@ -222,26 +212,24 @@ function CustomVideoPlayer({ isVisible }) {
                 </Button>
               </MKBox>
             )}
-            
-            {/* Video controls (show conditionally) */}
+
             {showControls && (
               <MKBox
                 position="absolute"
                 bottom="0"
                 left="0"
                 width="100%"
-                sx={{ 
+                sx={{
                   backgroundColor: "rgba(0, 0, 0, 0.7)",
                   padding: "10px 16px",
                   transition: "opacity 0.3s ease",
                 }}
               >
-                {/* Progress slider */}
                 <Slider
                   value={progress}
                   onChange={handleProgressChange}
                   aria-label="Video Progress"
-                  sx={{ 
+                  sx={{
                     color: "primary.main",
                     height: 4,
                     padding: "13px 0",
@@ -255,33 +243,24 @@ function CustomVideoPlayer({ isVisible }) {
                     },
                   }}
                 />
-                
-                {/* Controls row */}
+
                 <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
                   <Stack direction="row" spacing={1} alignItems="center">
-                    {/* Play/Pause button */}
                     <IconButton onClick={togglePlay} size="medium" sx={{ color: "white" }}>
                       {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
                     </IconButton>
-                    
-                    {/* Rewind button */}
                     <IconButton onClick={skipBackward} size="medium" sx={{ color: "white" }}>
                       <FastRewindIcon />
                     </IconButton>
-                    
-                    {/* Fast forward button */}
                     <IconButton onClick={skipForward} size="medium" sx={{ color: "white" }}>
                       <FastForwardIcon />
                     </IconButton>
-                    
-                    {/* Time display */}
                     <MKTypography variant="button" color="white">
                       {formatTime(currentTime)} / {formatTime(duration)}
                     </MKTypography>
                   </Stack>
-                  
+
                   <Stack direction="row" spacing={1} alignItems="center">
-                    {/* Volume controls */}
                     <IconButton onClick={toggleMute} size="medium" sx={{ color: "white" }}>
                       {isMuted ? <VolumeOffIcon /> : <VolumeUpIcon />}
                     </IconButton>
@@ -292,7 +271,7 @@ function CustomVideoPlayer({ isVisible }) {
                       min={0}
                       max={1}
                       step={0.01}
-                      sx={{ 
+                      sx={{
                         width: 100,
                         color: "white",
                         '& .MuiSlider-track': {
@@ -300,8 +279,6 @@ function CustomVideoPlayer({ isVisible }) {
                         },
                       }}
                     />
-                    
-                    {/* Fullscreen button */}
                     <IconButton onClick={toggleFullScreen} size="medium" sx={{ color: "white" }}>
                       <FullscreenIcon />
                     </IconButton>
@@ -310,7 +287,7 @@ function CustomVideoPlayer({ isVisible }) {
               </MKBox>
             )}
           </MKBox>
-          
+
           <MKBox p={3} textAlign="center">
             <MKTypography variant="h4" mb={1}>
               See Our Solutions In Action
@@ -325,12 +302,10 @@ function CustomVideoPlayer({ isVisible }) {
   );
 }
 
-// Add prop validation
 CustomVideoPlayer.propTypes = {
   isVisible: PropTypes.bool
 };
 
-// Add default props
 CustomVideoPlayer.defaultProps = {
   isVisible: false
 };
