@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 // Senthil Solar React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
+import CustomVideoPlayer from "components/videoPlayer";
 
 // Senthil Solar React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -220,6 +221,7 @@ function Presentation() {
             category="Commercial"
             isVisible={isVisible}
           />
+          <CustomVideoPlayer isVisible={isVisible} />
         </Card>
       </motion.div>
 
