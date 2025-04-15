@@ -1,28 +1,6 @@
-/* eslint-disable no-param-reassign */
-/**
-=========================================================
-* Senthil Solar React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { Fragment, useState, useEffect } from "react";
-
-// react-router components
 import { Link } from "react-router-dom";
-
-// prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
-
-// @mui material components
 import Container from "@mui/material/Container";
 import Icon from "@mui/material/Icon";
 import Popper from "@mui/material/Popper";
@@ -30,6 +8,7 @@ import Grow from "@mui/material/Grow";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import MuiLink from "@mui/material/Link";
+import Zoom from "@mui/material/Zoom";
 
 // Senthil Solar React components
 import MKBox from "components/MKBox";
@@ -55,11 +34,14 @@ function DefaultNavbar({routes, transparent, light, action, sticky, relative, ce
   const [arrowRef, setArrowRef] = useState(null);
   const [mobileNavbar, setMobileNavbar] = useState(false);
   const [mobileView, setMobileView] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
+  // Track which menu items have appeared
+  const [visibleMenuItems, setVisibleMenuItems] = useState({});
 
   const openMobileNavbar = () => setMobileNavbar(!mobileNavbar);
 
   useEffect(() => {
-    // A function that sets the display state for the DefaultNavbarMobile.
+    // A function that sets the display state for the DefaultNavbarMobile
     function displayMobileNavbar() {
       if (window.innerWidth < breakpoints.values.lg) {
         setMobileView(true);
@@ -70,37 +52,76 @@ function DefaultNavbar({routes, transparent, light, action, sticky, relative, ce
       }
     }
 
-    /** 
-     The event listener that's calling the displayMobileNavbar function when 
-     resizing the window.
-    */
+    // Event listener for window resize
     window.addEventListener("resize", displayMobileNavbar);
 
-    // Call the displayMobileNavbar function to set the state with the initial value.
+    // Call the displayMobileNavbar function to set the state with the initial value
     displayMobileNavbar();
+    
+    // Show the navbar container first
+    const navbarTimer = setTimeout(() => {
+      setShowNavbar(true);
+    }, 300);
+
+    // Show each menu item one by one with increasing delays
+    routes.forEach((route, index) => {
+      setTimeout(() => {
+        setVisibleMenuItems(prev => ({
+          ...prev,
+          [route.name]: true
+        }));
+      }, 600 + (index * 200)); // Start at 600ms, then add 200ms for each item
+    });
+
+    // Show action button last if it exists
+    if (action) {
+      setTimeout(() => {
+        setVisibleMenuItems(prev => ({
+          ...prev,
+          actionButton: true
+        }));
+      }, 600 + (routes.length * 200) + 200);
+    }
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", displayMobileNavbar);
-  }, []);
+    return () => {
+      window.removeEventListener("resize", displayMobileNavbar);
+      clearTimeout(navbarTimer);
+    };
+  }, [routes, action]);
 
   const renderNavbarItems = routes.map(({ name, icon, href, route, collapse }) => (
-    <DefaultNavbarDropdown
-      key={name}
-      name={name}
-      icon={icon}
-      href={href}
-      route={route}
-      collapse={Boolean(collapse)}
-      onMouseEnter={({ currentTarget }) => {
-        if (collapse) {
-          setDropdown(currentTarget);
-          setDropdownEl(currentTarget);
-          setDropdownName(name);
-        }
+    <Zoom 
+      in={visibleMenuItems[name] || false} 
+      timeout={400}
+      style={{ 
+        transitionDelay: visibleMenuItems[name] ? '200ms' : '0ms',
       }}
-      onMouseLeave={() => collapse && setDropdown(null)}
-      light={light}
-    />
+      key={name}
+    >
+      <MKBox sx={{ 
+        transform: visibleMenuItems[name] ? "translateY(0)" : "translateY(-20px)",
+        opacity: visibleMenuItems[name] ? 1 : 0,
+        transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out",
+      }}>
+        <DefaultNavbarDropdown
+          name={name}
+          icon={icon}
+          href={href}
+          route={route}
+          collapse={Boolean(collapse)}
+          onMouseEnter={({ currentTarget }) => {
+            if (collapse) {
+              setDropdown(currentTarget);
+              setDropdownEl(currentTarget);
+              setDropdownName(name);
+            }
+          }}
+          onMouseLeave={() => collapse && setDropdown(null)}
+          light={light}
+        />
+      </MKBox>
+    </Zoom>
   ));
 
   // Render the routes on the dropdown menu
@@ -452,14 +473,14 @@ function DefaultNavbar({routes, transparent, light, action, sticky, relative, ce
   );
 
   return (
-      <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
+    <Container sx={sticky ? { position: "sticky", top: 0, zIndex: 10 } : null}>
       {/* Logo Container (Outside the header box) */}
       <MKBox
         position="absolute"
         top={0}
         left={0}
         zIndex={5}
-        sx={{ px: 7,py: 2 }}
+        sx={{ px: 7, py: 2 }}
       >
         <MKBox
           component={Link}
@@ -474,87 +495,106 @@ function DefaultNavbar({routes, transparent, light, action, sticky, relative, ce
           />
         </MKBox>
       </MKBox>
-      <MKBox
-        py={1}
-        px={{ xs: 4, sm: transparent ? 2 : 3, lg: transparent ? 0 : 2 }}
-        my={relative ? 0 : 7}
-        mx={relative ? 0 : 3}
-        width={relative ? "100%" : "calc(100% - 48px)"}
-        borderRadius="xl"
-        shadow={transparent ? "none" : "md"}
-        color={light ? "white" : "dark"}
-        position={relative ? "relative" : "absolute"}
-        left={0}
-        zIndex={3}
-        sx={({ palette: { transparent: transparentColor, white }, functions: { rgba } }) => ({
-          backgroundColor: transparent ? transparentColor.main : rgba(white.main, 0.8),
-          backdropFilter: transparent ? "none" : `saturate(200%) blur(30px)`,
-        })}
-      >
-        <MKBox display="flex" justifyContent="space-between" alignItems="center">
-          <MKBox
-            color="inherit"
-            display={{ xs: "none", lg: "flex" }}
-            ml="auto"
-            mr={center ? "auto" : 0}
-          >
-            {renderNavbarItems}
-          </MKBox>
-          <MKBox ml={{ xs: "auto", lg: 0 }}>
-            {action &&
-              (action.type === "internal" ? (
-                <MKButton
-                  component={Link}
-                  to={action.route}
-                  variant={
-                    action.color === "white" || action.color === "default"
-                      ? "contained"
-                      : "gradient"
-                  }
-                  color={action.color ? action.color : "info"}
-                  size="small"
-                >
-                  {action.label}
-                </MKButton>
-              ) : (
-                <MKButton
-                  component="a"
-                  href={action.route}
-                  target="_blank"
-                  rel="noreferrer"
-                  variant={
-                    action.color === "white" || action.color === "default"
-                      ? "contained"
-                      : "gradient"
-                  }
-                  color={action.color ? action.color : "info"}
-                  size="small"
-                >
-                  {action.label}
-                </MKButton>
-              ))}
-          </MKBox>
-          <MKBox
-            display={{ xs: "inline-block", lg: "none" }}
-            lineHeight={0}
-            py={1.5}
-            pl={1.5}
-            color={transparent ? "white" : "inherit"}
-            sx={{ cursor: "pointer" }}
-            onClick={openMobileNavbar}
-          >
-            <Icon fontSize="default">{mobileNavbar ? "close" : "menu"}</Icon>
-          </MKBox>
-        </MKBox>
+      
+      {/* Navbar Container - this appears first */}
+      <Grow in={showNavbar} timeout={600}>
         <MKBox
-          bgColor={transparent ? "white" : "transparent"}
-          shadow={transparent ? "lg" : "none"}
+          py={1}
+          px={{ xs: 4, sm: transparent ? 2 : 3, lg: transparent ? 0 : 2 }}
+          my={relative ? 0 : 7}
+          mx={relative ? 0 : 3}
+          width={relative ? "100%" : "calc(100% - 48px)"}
           borderRadius="xl"
-          px={transparent ? 2 : 0}
+          shadow={transparent ? "none" : "md"}
+          color={light ? "white" : "dark"}
+          position={relative ? "relative" : "absolute"}
+          left={0}
+          zIndex={3}
+          sx={({ palette: { transparent: transparentColor, white }, functions: { rgba } }) => ({
+            backgroundColor: transparent ? transparentColor.main : rgba(white.main, 0.8),
+            backdropFilter: transparent ? "none" : `saturate(200%) blur(30px)`,
+          })}
         >
-          {mobileView && <DefaultNavbarMobile routes={routes} open={mobileNavbar} />}
+          <MKBox display="flex" justifyContent="space-between" alignItems="center">
+            <MKBox
+              color="inherit"
+              display={{ xs: "none", lg: "flex" }}
+              ml="auto"
+              mr={center ? "auto" : 0}
+            >
+              {renderNavbarItems}
+            </MKBox>
+            <MKBox ml={{ xs: "auto", lg: 0 }}>
+              {action && (
+                <Zoom
+                  in={visibleMenuItems.actionButton || false}
+                  timeout={400}
+                  style={{ 
+                    transitionDelay: visibleMenuItems.actionButton ? '200ms' : '0ms',
+                  }}
+                >
+                  <MKBox sx={{ 
+                    transform: visibleMenuItems.actionButton ? "translateY(0)" : "translateY(-20px)",
+                    opacity: visibleMenuItems.actionButton ? 1 : 0,
+                    transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out",
+                  }}>
+                    {action.type === "internal" ? (
+                      <MKButton
+                        component={Link}
+                        to={action.route}
+                        variant={
+                          action.color === "white" || action.color === "default"
+                            ? "contained"
+                            : "gradient"
+                        }
+                        color={action.color ? action.color : "info"}
+                        size="small"
+                      >
+                        {action.label}
+                      </MKButton>
+                    ) : (
+                      <MKButton
+                        component="a"
+                        href={action.route}
+                        target="_blank"
+                        rel="noreferrer"
+                        variant={
+                          action.color === "white" || action.color === "default"
+                            ? "contained"
+                            : "gradient"
+                        }
+                        color={action.color ? action.color : "info"}
+                        size="small"
+                      >
+                        {action.label}
+                      </MKButton>
+                    )}
+                  </MKBox>
+                </Zoom>
+              )}
+            </MKBox>
+            <MKBox
+              display={{ xs: "inline-block", lg: "none" }}
+              lineHeight={0}
+              py={1.5}
+              pl={1.5}
+              color={transparent ? "white" : "inherit"}
+              sx={{ cursor: "pointer" }}
+              onClick={openMobileNavbar}
+            >
+              <Icon fontSize="default">{mobileNavbar ? "close" : "menu"}</Icon>
+            </MKBox>
+          </MKBox>
+          <MKBox
+            bgColor={transparent ? "white" : "transparent"}
+            shadow={transparent ? "lg" : "none"}
+            borderRadius="xl"
+            px={transparent ? 2 : 0}
+          >
+            {mobileView && <DefaultNavbarMobile routes={routes} open={mobileNavbar} />}
+          </MKBox>
         </MKBox>
-      </MKBox>
+      </Grow>
       {dropdownMenu}
       {nestedDropdownMenu}
     </Container>
