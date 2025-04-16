@@ -36,19 +36,31 @@ function SolarCalculator() {
   const [results, setResults] = useState(null);
   const [showResults, setShowResults] = useState(false);
 
-  // Tamil Nadu electricity rates
+  // Updated Tamil Nadu electricity rates based on the provided images
   const electricityRates = {
     domestic: [
-      { max: 100, rate: 3 },
-      { max: 200, rate: 4.5 },
-      { max: 300, rate: 6 },
-      { max: Infinity, rate: 7.5 }
+      { min: 0, max: 400, rate: 4.80 },
+      { min: 401, max: 500, rate: 6.45 },
+      { min: 501, max: 600, rate: 8.55 },
+      { min: 601, max: 800, rate: 9.65 },
+      { min: 801, max: 1000, rate: 10.70 },
+      { min: 1001, max: Infinity, rate: 11.80 }
     ],
     commercial: [
-      { max: 100, rate: 6.5 },
-      { max: 300, rate: 7.5 },
-      { max: 500, rate: 8.5 },
-      { max: Infinity, rate: 9.5 }
+      { min: 0, max: 100, rate: 6.05 },
+      { min: 101, max: 500, rate: 6.70 },
+      { min: 501, max: Infinity, rate: 7.10 }
+    ]
+  };
+
+  // Fixed charges based on consumption
+  const fixedCharges = {
+    domestic: [
+      { max: 500, charge: 10 },
+      { max: Infinity, charge: 20 }
+    ],
+    commercial: [
+      { max: Infinity, charge: 130 } // Base commercial fixed charge
     ]
   };
 
@@ -75,18 +87,49 @@ function SolarCalculator() {
     }
   };
 
+  // Calculate electricity bill using slab-wise billing
   const calculateElectricityBill = (consumption, type) => {
     const rates = electricityRates[type];
-    let bill = 0;
-    let remainingUnits = consumption;
+    let energyCharges = 0;
     
+    // Calculate energy charges based on slabs
     for (const slab of rates) {
-      if (remainingUnits <= 0) break;
-      const unitsInSlab = Math.min(remainingUnits, slab.max - (slab.min || 0));
-      bill += unitsInSlab * slab.rate;
-      remainingUnits -= unitsInSlab;
+      if (consumption <= slab.min) continue;
+      
+      const unitsInSlab = Math.min(
+        consumption > slab.max ? slab.max - slab.min : consumption - slab.min,
+        slab.max - slab.min
+      );
+      
+      if (unitsInSlab > 0) {
+        energyCharges += unitsInSlab * slab.rate;
+      }
     }
-    return bill;
+    
+    // Calculate fixed charges
+    const fixedChargeRates = fixedCharges[type];
+    let fixedCharge = 0;
+    
+    for (const rate of fixedChargeRates) {
+      if (consumption <= rate.max) {
+        fixedCharge = rate.charge;
+        break;
+      }
+    }
+    
+    // Calculate electricity duty (0.06 paise per unit)
+    const electricityDuty = consumption * 0.06;
+    
+    // Customer charges
+    let customerCharge = 0;
+    if (type === 'domestic' && consumption > 400) {
+      customerCharge = 160;
+    } else if (type === 'commercial') {
+      customerCharge = 140;
+    }
+    
+    // Total bill
+    return energyCharges + fixedCharge + electricityDuty + customerCharge;
   };
 
   const calculateSolarSystem = () => {
@@ -171,7 +214,7 @@ function SolarCalculator() {
               Solar Calculator
             </MKTypography>
             <MKTypography variant="body1" color="white" opacity={0.8} px={6}>
-              Calculate your solar potential and savings in Tamil Nadu
+              Calculate your solar potential and savings with updated Tamil Nadu rates
             </MKTypography>
           </Grid>
         </Grid>
@@ -201,7 +244,7 @@ function SolarCalculator() {
                           value={consumerType}
                           label="Consumer Type"
                           onChange={handleTypeChange}
-                          sx={{ height: "56px" }} // Increased height of Select
+                          sx={{ height: "56px" }}
                         >
                           <MenuItem value="domestic">Residential</MenuItem>
                           <MenuItem value="commercial">Commercial</MenuItem>
@@ -232,7 +275,7 @@ function SolarCalculator() {
                           onClick={handleCalculate}
                           size="large"
                           fullWidth
-                          sx={{ height: "56px" }} // Increased height of button
+                          sx={{ height: "56px" }}
                         >
                           Calculate Solar Potential
                         </MKButton>
@@ -382,10 +425,13 @@ function SolarCalculator() {
 
             <MKBox textAlign="center" mt={4}>
               <MKTypography variant="body2" color="text">
-                * Calculations are estimates based on Tamil Nadu electricity rates and average solar conditions.
+                * Calculations are estimates based on updated Tamil Nadu electricity rates and average solar conditions.
               </MKTypography>
               <MKTypography variant="body2" color="text">
                 * Subsidy rates: 1kW (₹30,000), 2kW (₹60,000), 3kW (₹78,000).
+              </MKTypography>
+              <MKTypography variant="body2" color="text">
+                * Bill includes energy charges, fixed charges, electricity duty (0.06₹/unit), and customer charges.
               </MKTypography>
               <MKTypography variant="body2" color="text">
                 * Contact us for a detailed assessment and customized solutions.

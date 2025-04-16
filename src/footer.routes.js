@@ -31,9 +31,10 @@ export default {
         { name: "Awards and Recognition", href: "gallery/awards" },
         { name: "Residential", href: "gallery/residential" },
         { name: "Commercial", href: "gallery/commercial" },
-        { name: "Street Lights", href: "gallery/streetlights" },
+        // { name: "Street Lights", href: "gallery/streetlights" },
         { name: "Solar Pumps", href: "gallery/solarpumps" },
         { name: "Off Grid Systems", href: "gallery/offgridsystem" },
+        { name: "Solar Heaters", href: "gallery/solarheaters" },
       ],
     },
     {

@@ -25,9 +25,9 @@ import Presentation from "pages/gallery/residential";
 import Awards from "pages/gallery/awards";
 import Presentation1 from "pages/gallery/commercial";
 import SolarPump from "pages/gallery/solarpump";
-import StreetLight from "pages/gallery/streetlight";
 import OffGrid from "pages/gallery/offgrid";
 import Presentation2 from "pages/solarcalculator";
+import SolarHeater from "pages/gallery/solarHeater";
 
 const routes = [
   {
@@ -85,11 +85,11 @@ const routes = [
         route: "/gallery/commercial",
         component: <Presentation1 />,
       },
-      {
-        name: "Street Lights",
-        route: "/gallery/streetlights",
-        component: <StreetLight />,
-      },
+      // {
+      //   name: "Street Lights",
+      //   route: "/gallery/streetlights",
+      //   component: <StreetLight />,
+      // },
       {
         name: "Solar Pumps",
         route: "/gallery/solarpumps",
@@ -99,6 +99,11 @@ const routes = [
         name: "Off Grid Systems",
         route: "/gallery/offgridsystem",
         component: <OffGrid />,
+      },
+      {
+        name: "Solar Heaters",
+        route: "/gallery/solarheaters",
+        component: <SolarHeater />,
       },
     ],
   },

@@ -1,3 +1,18 @@
+/*
+=========================================================
+* Senthil Solar React - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-kit-react
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+
 // @mui material components
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -6,7 +21,6 @@ import Card from "@mui/material/Card";
 // Senthil Solar React components
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
-import CustomVideoPlayer from "components/videoPlayer";
 
 // Senthil Solar React examples
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -16,12 +30,12 @@ import DefaultFooter from "examples/Footers/DefaultFooter";
 import DesignBlocks from "pages/Presentation/sections/DesignBlocks";
 
 // Icons for features
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import SolarPowerIcon from '@mui/icons-material/SolarPower';
-import NatureIcon from '@mui/icons-material/Nature';
-import BusinessIcon from '@mui/icons-material/Business';
-import PriceChangeIcon from '@mui/icons-material/PriceChange';
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import WaterIcon from '@mui/icons-material/Water';
+import SavingsIcon from '@mui/icons-material/Savings';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import HomeIcon from '@mui/icons-material/Home';
+import SpaIcon from '@mui/icons-material/Spa';
 
 // Animation
 import { motion } from "framer-motion";
@@ -34,7 +48,7 @@ import footerRoutes from "footer.routes";
 // Images
 import bgImage from "assets/images/canva_banner.png";
 
-function Presentation() {
+function SolarHeater() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -46,46 +60,45 @@ function Presentation() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Define features data for commercial solutions
-  const commercialFeatures = [
+  const solarHeaterFeatures = [
     {
-      icon: <PriceChangeIcon />,
-      title: "Significant Cost Savings",
+      icon: <WaterIcon />,
+      title: "Hot Water Year-Round",
       description:
-        "Dramatically lower your operating expenses with a commercial solar system that significantly reduces or eliminates your monthly electricity bills."
+        "Enjoy reliable hot water supply throughout the year with our efficient solar water heating systems that work even on cloudy days.",
     },
     {
-      icon: <AssessmentIcon />,
-      title: "Improved Return on Investment",
+      icon: <SavingsIcon />,
+      title: "Reduced Utility Bills",
       description:
-        "Solar energy is a long-term asset that provides a strong return on investment through reduced energy costs and potential incentives."
+        "Cut your energy costs by up to 80% by harnessing free solar energy for water heating instead of relying on electricity or gas.",
     },
     {
-      icon: <BusinessIcon />,
-      title: "Enhanced Business Reputation",
+      icon: <WbSunnyIcon />,
+      title: "Clean Energy Solution",
       description:
-        "Demonstrate your commitment to sustainability and environmental responsibility, enhancing your brand image and attracting environmentally conscious customers."
+        "Minimize your carbon footprint with our zero-emission solar water heaters that use renewable energy from the sun.",
     },
     {
-      icon: <SolarPowerIcon />,
-      title: "Energy Independence",
+      icon: <EngineeringIcon />,
+      title: "Low Maintenance Design",
       description:
-        "Reduce your reliance on the traditional power grid and volatile energy prices, gaining greater control over your energy future."
+        "Our solar water heaters are built to last with minimal maintenance requirements and durable components that withstand harsh weather.",
     },
     {
-      icon: <NatureIcon />,
-      title: "Environmental Stewardship",
+      icon: <HomeIcon />,
+      title: "Suitable for All Homes",
       description:
-        "Contribute to a cleaner environment by reducing your business's carbon footprint and promoting sustainable practices."
+        "Whether you have a small apartment or large residence, our scalable solar water heating solutions can be customized to your needs.",
     },
     {
-      icon: <HomeOutlinedIcon />,
-      title: "Increased Property Value",
+      icon: <SpaIcon />,
+      title: "Comfortable Living",
       description:
-        "Commercial properties with solar installations often see an increase in their market value and are more attractive to potential buyers or tenants."
-    }
+        "Experience the comfort of consistent hot water for bathing, cooking, and cleaning while contributing to environmental sustainability.",
+    },
   ];
-  
+
   // Animation variants
   const headerAnimation = {
     hidden: { opacity: 0, y: -100 },
@@ -158,7 +171,8 @@ function Presentation() {
         />
       </motion.div>
 
-      <MKBox
+    
+        <MKBox
         minHeight="60vh"
         width="100%"
         sx={{
@@ -188,9 +202,9 @@ function Presentation() {
                   textAlign: "center",
                 })}
               >
-                Senthil Solar
+                Solar Water Heaters
                 <br />
-                Join the solar energy revolution
+                Sustainable Hot Water Solutions
               </MKTypography>
             </Grid>
           </motion.div>
@@ -214,14 +228,13 @@ function Presentation() {
           }}
         >
           <AnimatedDesignBlocks 
-            title="Commercial Solar Solutions"
-            installationsCount="40+ INSTALLATIONS"
-            description="Our commercial solar solutions are designed to meet the unique energy demands of businesses, offering a sustainable, cost-effective way to reduce operational costs and increase energy efficiency. By integrating custom solar systems, we help businesses lower electricity bills, gain energy independence, and reduce their carbon footprint, all while benefiting from available government incentives and tax benefits. Solar power not only enhances your company's green footprint but also improves resilience against rising energy prices and power outages. With long-term savings, minimal maintenance, and the ability to scale as your business grows, our solutions provide an excellent return on investment. Discover how our tailored solar systems can help your business thrive with clean, renewable energy."
-            features={commercialFeatures}
-            category="Commercial"
+            title="Solar Water Heating Solutions"
+            installationsCount="120+ INSTALLATIONS"
+            description="Transform your home's water heating system with our premium solar water heaters, designed to provide abundant hot water while significantly reducing energy costs. Our solar thermal systems efficiently capture and convert sunlight into heat, providing your household with hot water for bathing, cooking, and cleaning. These environmentally friendly systems decrease your dependency on conventional energy sources, lowering both your utility bills and carbon footprint. Featuring advanced technology and durable construction, our solar water heaters deliver reliable performance in various climate conditions. Whether you're building a new home or upgrading your existing water heating system, our solar solutions offer a smart investment that combines economic benefits with environmental responsibility."
+            features={solarHeaterFeatures}
+            category="Solar Heaters"
             isVisible={isVisible}
           />
-          <CustomVideoPlayer isVisible={isVisible} />
         </Card>
       </motion.div>
 
@@ -256,30 +269,31 @@ function AnimatedDesignBlocks({ ...props }) {
   // Animation variants for features
   const featureAnimation = {
     hidden: { opacity: 0, x: -30 },
-    visible: { 
+    visible: (i) => ({ 
       opacity: 1, 
       x: 0,
       transition: { 
         type: "spring",
         stiffness: 100,
-        damping: 10
+        damping: 10,
+        delay: 0.1 * i
       }
-    },
+    }),
     hover: {
       scale: 1.03,
       y: -5,
+      boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)",
       transition: {
         duration: 0.3
       }
     }
   };
 
-  // We're creating a wrapped version of DesignBlocks
-  // that adds animations to the child components
   return (
     <div>
       <motion.div
         initial="hidden"
+        animate={"visible"}
         variants={textAnimation}
       >
         {/* This will be our animated header section */}
@@ -296,8 +310,10 @@ function AnimatedDesignBlocks({ ...props }) {
         renderFeature={(feature, index) => (
           <motion.div 
             key={index}
-            variants={featureAnimation}
+            initial="hidden"
+            animate={"visible"}
             whileHover="hover"
+            variants={featureAnimation}
             custom={index}
           >
             {/* Render the feature content here */}
@@ -313,4 +329,4 @@ function AnimatedDesignBlocks({ ...props }) {
   );
 }
 
-export default Presentation;
+export default SolarHeater;

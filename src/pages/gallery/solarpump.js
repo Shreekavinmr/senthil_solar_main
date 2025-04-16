@@ -172,12 +172,12 @@ function SolarPump() {
       </motion.div>
 
       <MKBox
-        minHeight="75vh"
+        minHeight="60vh"
         width="100%"
         sx={{
-          backgroundImage: `url(${bgImage})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${bgImage})`,
           backgroundSize: "cover",
-          backgroundPosition: "top",
+          backgroundPosition: "center",
           display: "grid",
           placeItems: "center",
         }}
