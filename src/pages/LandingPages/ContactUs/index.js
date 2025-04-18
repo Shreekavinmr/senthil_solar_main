@@ -34,7 +34,7 @@ import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
 
 // Images
-import bgImage from "assets/images/Senthil_Solar_Logo.png";
+import bgImage from "assets/images/senthil_logo_latest.png";
 import contactBanner from "assets/images/canva_banner.png";
 
 function ContactUs() {

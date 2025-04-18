@@ -27,7 +27,7 @@ import Grid from "@mui/material/Grid";
 import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 
-import bgImage from "assets/images/Senthil_Solar_Logo.png";
+import bgImage from "assets/images/senthil_logo_latest.png";
 
 function DefaultFooter({ content }) {
   const { brand, socials, menus, copyright } = content;

@@ -22,7 +22,7 @@ import DefaultNavbarMobile from "examples/Navbars/DefaultNavbar/DefaultNavbarMob
 // Senthil Solar React base styles
 import breakpoints from "assets/theme/base/breakpoints";
 
-import brand1 from "assets/images/Senthil_Solar_Logo.png";
+import brand1 from "assets/images/senthil_logo_latest1.png";
 
 function DefaultNavbar({routes, transparent, light, action, sticky, relative, center }) {
   const [dropdown, setDropdown] = useState("");
